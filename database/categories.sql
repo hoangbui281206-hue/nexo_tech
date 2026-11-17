@@ -1,4 +1,4 @@
---Mở database hpc_phone và dán đoạn code sau vào SQL để tạo bảng categories và thêm dữ liệu mẫu
+-- Mở database hpc_phone và dán đoạn code sau vào SQL để tạo bảng categories và thêm dữ liệu mẫu
 
 USE hpc_phone;
 

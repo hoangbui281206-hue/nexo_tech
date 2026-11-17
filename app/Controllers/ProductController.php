@@ -68,32 +68,30 @@ class ProductController extends BaseController
      * ID được Router truyền từ URL:
      * /products/{id}
      */
-    public function show(int $id = 0): void
+    
+    public function show(string $id = '0'): void
     {
-        /*
-         * Dự phòng trường hợp Router chưa truyền
-         * tham số trực tiếp vào hàm.
-         */
-        if ($id <= 0) {
-            $id = (int) ($_GET['id'] ?? 0);
+        // Kiểm tra ID hợp lệ
+        if (!ctype_digit($id)) {
+            http_response_code(404);
+            $_SESSION['flash'] = 'Mã sản phẩm không hợp lệ.';
+            $this->redirect('/products');
+            return;
         }
+        
+        $id = (int) $id;
 
         if ($id <= 0) {
-            $_SESSION['flash'] =
-                'Mã sản phẩm không hợp lệ.';
-
+            $_SESSION['flash'] = 'Mã sản phẩm không hợp lệ.';
             $this->redirect('/products');
             return;
         }
 
         $productModel = new Product();
-
         $product = $productModel->find($id);
 
         if (!$product) {
-            $_SESSION['flash'] =
-                'Không tìm thấy sản phẩm.';
-
+            $_SESSION['flash'] = 'Không tìm thấy sản phẩm.';
             $this->redirect('/products');
             return;
         }
