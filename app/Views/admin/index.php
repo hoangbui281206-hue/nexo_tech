@@ -13,6 +13,10 @@
             📱 Quản lý sản phẩm
         </a>
 
+        <a href="/admin/variants">
+            🎨 Quản lý biến thể
+        </a>
+
         <a href="/admin/categories">
             📂 Quản lý danh mục
         </a>

@@ -178,6 +178,44 @@ $router->post(
     'AdminController@deleteProduct'
 );
 
+
+/*
+|--------------------------------------------------------------------------
+| QUẢN LÝ BIẾN THỂ SẢN PHẨM
+|--------------------------------------------------------------------------
+*/
+
+$router->get(
+    '/admin/variants',
+    'AdminVariantController@index'
+);
+
+$router->get(
+    '/admin/variants/create',
+    'AdminVariantController@createForm'
+);
+
+$router->post(
+    '/admin/variants/create',
+    'AdminVariantController@store'
+);
+
+$router->get(
+    '/admin/variants/edit/{id}',
+    'AdminVariantController@editForm'
+);
+
+$router->post(
+    '/admin/variants/update',
+    'AdminVariantController@update'
+);
+
+$router->post(
+    '/admin/variants/delete',
+    'AdminVariantController@delete'
+);
+
+
 /*
 |--------------------------------------------------------------------------
 | QUẢN LÝ ĐƠN HÀNG ADMIN

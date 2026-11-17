@@ -22,12 +22,14 @@ class Router
 
     public function dispatch(string $method, string $uri): void
     {
+        $method = strtoupper($method);
+
         $uri = parse_url($uri, PHP_URL_PATH) ?: '/';
         $uri = rtrim($uri, '/') ?: '/';
 
         foreach ($this->routes[$method] ?? [] as $route => $handler) {
 
-            // Chuyển tham số {id}, {slug} thành biểu thức regex
+            // Chuyển {id}, {slug} thành tham số URL
             $pattern = preg_replace_callback(
                 '/\{([a-zA-Z_][a-zA-Z0-9_]*)\}/',
                 function ($matches) {
@@ -53,7 +55,9 @@ class Router
 
                 if (!method_exists($controller, $action)) {
                     http_response_code(500);
-                    exit("Phương thức {$action} không tồn tại trong {$controllerName}.");
+                    exit(
+                        "Phương thức {$action} không tồn tại trong {$controllerName}."
+                    );
                 }
 
                 // Giải mã tham số URL
