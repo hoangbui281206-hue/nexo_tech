@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
-
 use App\Core\BaseController;
 use App\Models\Category;
+use PDO;
 
 class CategoryController extends BaseController
 {
@@ -80,20 +80,29 @@ class CategoryController extends BaseController
     }
 
     /** Hiển thị form sửa danh mục */
-    public function editForm(int $id): void
-    {
-        $this->requireAdmin();
-        
-        $category = (new Category())->getConnection()->prepare("SELECT * FROM categories WHERE id = :id")->execute([':id' => $id])->fetch() ?: null;
+    
+public function editForm(int|string $id)
+{
+    $id = (int) $id;
+    $this->requireAdmin();
 
-        if (!$category) {
-            $_SESSION['flash'] = 'Danh mục không tồn tại.';
-            $this->redirect('/admin/categories');
-            return;
-        }
+    $stmt = (new Category())
+        ->getConnection()
+        ->prepare("SELECT * FROM categories WHERE id = :id");
 
-        $this->view('admin/category-form', compact('category'));
+    $stmt->execute([':id' => $id]);
+
+    $category = $stmt->fetch(\PDO::FETCH_ASSOC) ?: null;
+
+    if (!$category) {
+        $_SESSION['flash'] = 'Danh mục không tồn tại.';
+        $this->redirect('/admin/categories');
+        return;
     }
+
+    $this->view('admin/categories-edit', compact('category'));
+}
+
 
     /** Xử lý cập nhật danh mục */
     public function update(): void
@@ -138,12 +147,14 @@ class CategoryController extends BaseController
         $this->redirect('/admin/categories');
     }
 
+    
     /** Xóa danh mục */
     public function delete(): void
     {
         $this->requireAdmin();
 
-        $id = (int) ($_GET['id'] ?? 0);
+        // Lấy ID từ form POST
+        $id = (int) ($_POST['id'] ?? 0);
 
         if ($id <= 0) {
             $_SESSION['flash'] = 'ID danh mục không hợp lệ.';
@@ -151,8 +162,25 @@ class CategoryController extends BaseController
             return;
         }
 
-        // Kiểm tra xem có sản phẩm liên quan không
-        $check = (new Category())->getConnection()->prepare("SELECT COUNT(*) FROM products WHERE category_id = :id")->execute([':id' => $id])->fetchColumn();
+        $db = (new Category())->getConnection();
+
+        // Kiểm tra danh mục có tồn tại không
+        $stmt = $db->prepare("SELECT id FROM categories WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+
+        if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
+            $_SESSION['flash'] = 'Danh mục không tồn tại.';
+            $this->redirect('/admin/categories');
+            return;
+        }
+
+        // Kiểm tra sản phẩm đang sử dụng danh mục
+        $stmt = $db->prepare(
+            "SELECT COUNT(*) FROM products WHERE category_id = :id"
+        );
+        $stmt->execute([':id' => $id]);
+
+        $check = (int) $stmt->fetchColumn();
 
         if ($check > 0) {
             $_SESSION['flash'] = 'Không thể xóa danh mục vì vẫn có sản phẩm liên quan.';
@@ -160,15 +188,17 @@ class CategoryController extends BaseController
             return;
         }
 
-        $sql = "DELETE FROM categories WHERE id = :id";
-        $stmt = (new Category())->getConnection()->prepare($sql);
+        // Thực hiện xóa
+        $stmt = $db->prepare("DELETE FROM categories WHERE id = :id");
         $deleted = $stmt->execute([':id' => $id]);
 
-        if (!$deleted) {
-            $_SESSION['flash'] = 'Không thể xóa danh mục.';
-        } else {
+        if ($deleted) {
             $_SESSION['flash'] = 'Xóa danh mục thành công.';
+        } else {
+            $_SESSION['flash'] = 'Không thể xóa danh mục.';
         }
+
         $this->redirect('/admin/categories');
     }
+
 }

@@ -66,7 +66,6 @@ $router->get('/admin/categories/edit/{id}', 'CategoryController@editForm');
 $router->post('/admin/categories/update', 'CategoryController@update');
 
 $router->post('/admin/categories/delete', 'CategoryController@delete');
-
 /*
 |--------------------------------------------------------------------------
 | GIỎ HÀNG
