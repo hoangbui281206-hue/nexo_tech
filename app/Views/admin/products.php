@@ -1,4 +1,24 @@
-<div class="container py-4">
+<div class="admin-page">
+
+    <!-- SIDEBAR -->
+<aside class="admin-sidebar">
+
+    <h2>⚙️ ADMIN</h2>
+    <a href="/admin">📊 Tổng quan</a>
+    <a href="/admin/products" class="active">📱 Quản lý sản phẩm</a>
+    <a href="/admin/categories">📂 Quản lý danh mục</a>
+    <a href="/admin/orders">📦 Quản lý đơn hàng</a>
+    <a href="/admin/revenue">💰 Quản lý doanh thu</a>
+    <a href="/admin/users">👥 Quản lý người dùng</a>
+    <hr>
+    <a href="/">🏠 Về trang chủ</a>
+
+</aside>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="admin-content">
+
+        <div class="container-fluid py-2">
 
     <!-- Tiêu đề -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -502,4 +522,238 @@
 
     </div>
 
+ </div>
+
+    </main>
+
 </div>
+
+
+
+<style>
+/* ==========================================
+   LAYOUT ADMIN - ĐỒNG BỘ DASHBOARD
+========================================== */
+
+.admin-page {
+    display: flex;
+    min-height: 650px;
+    margin: 20px 0;
+    gap: 25px;
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.admin-sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background: #212529;
+    border-radius: 10px;
+    padding: 20px 15px;
+    box-sizing: border-box;
+}
+
+.admin-sidebar h2 {
+    color: white;
+    margin: 0 0 25px;
+    text-align: center;
+}
+
+.admin-sidebar a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    padding: 13px 15px;
+    margin-bottom: 7px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+    background: #ffc107;
+    color: #212529;
+    font-weight: 600;
+}
+
+.admin-sidebar hr {
+    border: none;
+    border-top: 1px solid #555;
+    margin: 20px 0;
+}
+
+/* ==========================================
+   NỘI DUNG CHÍNH
+========================================== */
+
+.admin-content {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+}
+
+.admin-content h1 {
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.admin-content h5 {
+    color: #212529;
+}
+
+/* ==========================================
+   TIÊU ĐỀ VÀ MÔ TẢ
+========================================== */
+
+.admin-content .text-muted {
+    color: #6c757d !important;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.admin-content .card {
+    background: #fff;
+    border: 1px solid #e5e5e5 !important;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    overflow: hidden;
+}
+
+.admin-content .card-body {
+    padding: 24px;
+}
+
+/* ==========================================
+   FORM NHẬP LIỆU
+========================================== */
+
+.admin-content .form-label {
+    color: #212529;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.admin-content .form-control,
+.admin-content .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.admin-content .form-control:focus,
+.admin-content .form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.2);
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.admin-content .btn-warning {
+    background: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+    font-weight: 600;
+}
+
+.admin-content .btn-warning:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+}
+
+.admin-content .btn-dark {
+    background: #212529;
+    border-color: #212529;
+}
+
+.admin-content .btn {
+    border-radius: 7px;
+}
+
+/* ==========================================
+   THÔNG BÁO
+========================================== */
+
+.admin-content .alert {
+    border-radius: 8px;
+    padding: 13px 16px;
+}
+
+/* ==========================================
+   BẢNG SẢN PHẨM
+========================================== */
+
+.admin-content .table {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.admin-content .table th {
+    background: #f8f9fa;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 14px 12px;
+}
+
+.admin-content .table td {
+    font-size: 14px;
+    padding: 14px 12px;
+}
+
+.admin-content .table tbody tr:hover {
+    background: #fafafa;
+}
+
+.admin-content .badge {
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+    .admin-content .card-body {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 800px) {
+    .admin-page {
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+    }
+
+    .admin-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-content h1 {
+        font-size: 23px;
+    }
+
+    .admin-content .card-body {
+        padding: 15px;
+    }
+}
+</style>
+

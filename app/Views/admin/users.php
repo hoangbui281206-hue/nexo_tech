@@ -4,7 +4,9 @@
 
         <a href="/admin">📊 Tổng quan</a>
         <a href="/admin/products">📱 Quản lý sản phẩm</a>
+        <a href="/admin/categories">📂 Quản lý danh mục</a>
         <a href="/admin/orders">📦 Quản lý đơn hàng</a>
+        <a href="/admin/revenue">💰 Quản lý doanh thu</a>
         <a href="/admin/users" class="active">👥 Quản lý người dùng</a>
 
         <hr>

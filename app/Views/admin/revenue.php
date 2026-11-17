@@ -12,12 +12,16 @@
             📱 Quản lý sản phẩm
         </a>
 
+        <a href="/admin/categories">
+            📂 Quản lý danh mục
+        </a>
+
         <a href="/admin/orders">
             📦 Quản lý đơn hàng
         </a>
 
         <a href="/admin/revenue" class="active">
-            💰 Doanh thu
+            💰 Quản lý doanh thu
         </a>
 
         <a href="/admin/users">
@@ -35,7 +39,7 @@
 
     <main class="admin-content">
 
-        <h1>💰 Quản lý doanh thu</h1>
+        <h1>Quản lý doanh thu</h1>
 
         <p class="welcome">
             Thống kê doanh thu từ các đơn hàng đã hoàn thành.

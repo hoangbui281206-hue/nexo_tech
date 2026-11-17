@@ -1,4 +1,4 @@
-<div class="admin-dashboard">
+<div class="admin-page">
 
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
@@ -11,6 +11,10 @@
 
         <a href="/admin/products">
             📱 Quản lý sản phẩm
+        </a>
+
+        <a href="/admin/categories">
+            📂 Quản lý danh mục
         </a>
 
         <a href="/admin/orders">
@@ -44,6 +48,7 @@
                     Chào mừng bạn đến với trang quản trị NEXO TECH.
                 </p>
             </div>
+            <br><br>
 
             <a href="/admin/orders" class="header-button">
                 📦 Xem đơn hàng
@@ -289,46 +294,43 @@
 
 
 <style>
-
 /* ==========================================
-   LAYOUT ADMIN
+   LAYOUT ADMIN - DÙNG CHUNG
 ========================================== */
 
-.admin-dashboard {
+.admin-page {
     display: flex;
     min-height: 650px;
     margin: 20px 0;
     gap: 25px;
 }
 
-
 /* ==========================================
    SIDEBAR
 ========================================== */
 
 .admin-sidebar {
-    width: 240px;
-    background: #212529;
-    border-radius: 12px;
-    padding: 22px 15px;
-    box-sizing: border-box;
+    width: 230px;
     flex-shrink: 0;
+    background: #212529;
+    border-radius: 10px;
+    padding: 20px 15px;
+    box-sizing: border-box;
 }
 
 .admin-sidebar h2 {
-    color: #ffffff;
+    color: white;
     margin: 0 0 25px;
     text-align: center;
-    font-size: 22px;
 }
 
 .admin-sidebar a {
     display: block;
-    color: #dddddd;
+    color: #ddd;
     text-decoration: none;
     padding: 13px 15px;
     margin-bottom: 7px;
-    border-radius: 7px;
+    border-radius: 6px;
     transition: 0.2s;
 }
 
@@ -345,7 +347,6 @@
     margin: 20px 0;
 }
 
-
 /* ==========================================
    NỘI DUNG
 ========================================== */
@@ -355,17 +356,11 @@
     min-width: 0;
 }
 
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-}
-
 .admin-content h1 {
-    margin: 0 0 8px;
+    margin-top: 0;
     font-size: 28px;
 }
+
 
 .welcome {
     margin: 0;
@@ -604,15 +599,13 @@
 }
 
 @media (max-width: 800px) {
-
-    .admin-dashboard {
+    .admin-page {
         flex-direction: column;
     }
 
     .admin-sidebar {
         width: 100%;
     }
-
 }
 
 @media (max-width: 600px) {

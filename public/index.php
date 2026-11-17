@@ -53,6 +53,20 @@ $router->get('/products', 'ProductController@index');
  */
 $router->get('/products/{id}', 'ProductController@show');
 
+// Danh mục sản phẩm
+$router->get('/categories/{slug}', 'CategoryController@index');
+
+
+$router->get('/admin/categories', 'CategoryController@adminList');
+
+$router->get('/admin/categories/create', 'CategoryController@createForm');
+$router->post('/admin/categories/create', 'CategoryController@store');
+
+$router->get('/admin/categories/edit/{id}', 'CategoryController@editForm');
+$router->post('/admin/categories/update', 'CategoryController@update');
+
+$router->post('/admin/categories/delete', 'CategoryController@delete');
+
 /*
 |--------------------------------------------------------------------------
 | GIỎ HÀNG
