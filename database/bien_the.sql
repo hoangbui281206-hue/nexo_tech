@@ -1,4 +1,5 @@
 -- Mở database hpc_phone và dán đoạn code sau vào SQL để tạo bảng product_variants và thêm dữ liệu mẫu
+
 USE hpc_phone;
 
 -- 1. Tao bang bien the san pham

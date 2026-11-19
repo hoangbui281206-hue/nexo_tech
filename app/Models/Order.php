@@ -322,6 +322,28 @@ class Order extends BaseModel
     }
 
     /**
+     * Lấy email khách hàng theo ID
+     */
+    public function getUserEmail(int $userId): ?string
+    {
+        $stmt = $this->db->prepare(
+            "SELECT email
+            FROM users
+            WHERE id = :user_id
+            LIMIT 1"
+        );
+
+        $stmt->execute([
+            'user_id' => $userId
+        ]);
+
+        $email = $stmt->fetchColumn();
+
+        return $email ? (string) $email : null;
+    }
+
+
+    /**
      * Lấy tất cả đơn hàng của khách hàng đang đăng nhập
      */
     public function getByUserId(int $userId): array
