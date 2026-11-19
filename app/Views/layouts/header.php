@@ -72,6 +72,13 @@
                     </a>
                 </li>
 
+                <!-- Danh mục -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">
+                        Danh mục
+                    </a>
+                </li>
+
                 <!-- Giỏ hàng -->
                 <li class="nav-item">
                     <a

@@ -53,7 +53,10 @@ $router->get('/products', 'ProductController@index');
  */
 $router->get('/products/{id}', 'ProductController@show');
 
-// Danh mục sản phẩm
+// Trang tổng hợp danh mục
+$router->get('/categories', 'CategoryController@index');
+
+// Chi tiết danh mục và lọc sản phẩm
 $router->get('/categories/{slug}', 'CategoryController@index');
 
 

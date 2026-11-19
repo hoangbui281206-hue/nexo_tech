@@ -7,21 +7,100 @@ use PDO;
 class CategoryController extends BaseController
 {
     /** Hiển thị trang danh mục */
-    public function index(string $slug = ''): void
-    {
-        $category = $slug ? (new Category())->findBySlug($slug) : null;
+    /** Trang danh mục và lọc sản phẩm */
+public function index(string $slug = ''): void
+{
+    $categoryModel = new Category();
 
-        if (!$category) {
-            $_SESSION['flash'] = 'Danh mục không tồn tại.';
-            $this->redirect('/');
-            return;
-        }
+    // Danh sách danh mục đang hoạt động
+    $categories = $categoryModel->allActive();
 
-        $products = (new Category())->getProducts($category['id'], 12);
-        $productsCount = (new Category())->countByCategory($category['id']);
-
-        $this->view('categories/show', compact('category', 'products', 'productsCount'));
+    // Trang tổng hợp danh mục
+    if ($slug === '') {
+        $this->view('categories/index', compact('categories'));
+        return;
     }
+
+    // Tìm danh mục
+    $category = $categoryModel->findActiveBySlug($slug);
+
+    if (!$category) {
+        $_SESSION['flash'] = 'Danh mục không tồn tại.';
+        $this->redirect('/categories');
+        return;
+    }
+
+    // Lấy điều kiện lọc
+    $keyword = trim($_GET['keyword'] ?? '');
+    $stock = $_GET['stock'] ?? '';
+    $sort = $_GET['sort'] ?? 'newest';
+
+    $minPrice = max(0, (float) ($_GET['minPrice'] ?? 0));
+    $maxPrice = max(0, (float) ($_GET['maxPrice'] ?? 0));
+
+    if ($maxPrice > 0 && $maxPrice < $minPrice) {
+        $maxPrice = 0;
+    }
+
+    // Kiểm tra giá trị stock hợp lệ
+    if (!in_array($stock, ['in_stock', 'out_of_stock', ''], true)) {
+        $stock = '';
+    }
+
+    // Kiểm tra kiểu sắp xếp
+    $validSort = [
+        'newest',
+        'oldest',
+        'price_asc',
+        'price_desc',
+        'name_asc'
+    ];
+
+    if (!in_array($sort, $validSort, true)) {
+        $sort = 'newest';
+    }
+
+    // Điều kiện lọc
+    $filters = [
+        'keyword' => $keyword,
+        'stock' => $stock,
+        'minPrice' => $minPrice,
+        'maxPrice' => $maxPrice,
+        'sort' => $sort
+    ];
+
+    // Phân trang
+    $limit = 12;
+    $page = max(1, (int) ($_GET['page'] ?? 1));
+
+    $productsCount = $categoryModel->countFilteredProducts(
+        (int) $category['id'],
+        $filters
+    );
+
+    $totalPages = max(1, (int) ceil($productsCount / $limit));
+
+    $page = min($page, $totalPages);
+    $offset = ($page - 1) * $limit;
+
+    // Lấy sản phẩm
+    $products = $categoryModel->filterProducts(
+        (int) $category['id'],
+        $filters,
+        $limit,
+        $offset
+    );
+
+    $this->view('categories/show', compact(
+        'category',
+        'categories',
+        'products',
+        'productsCount',
+        'filters',
+        'page',
+        'totalPages'
+    ));
+}
 
     /** Danh sách danh mục cho Admin */
     public function adminList(): void
