@@ -9,6 +9,7 @@ $isEdit = !empty($category);
 
         <a href="/admin">📊 Tổng quan</a>
         <a href="/admin/products">📱 Quản lý sản phẩm</a>
+        <a href="/admin/variants">🎨 Quản lý biến thể</a>
         <a href="/admin/categories" class="active">📂 Quản lý danh mục</a>
         <a href="/admin/orders">📦 Quản lý đơn hàng</a>
         <a href="/admin/users">👥 Quản lý người dùng</a>

@@ -11,34 +11,34 @@ use Throwable;
 class AdminVariantController extends BaseController
 {
     /**
-     * Danh sách tất cả biến thể
-     */
-    public function index(): void
-    {
-        $variantModel = new ProductVariant();
+ * Trang quản lý biến thể
+ * Bao gồm form thêm và danh sách biến thể
+ */
+public function index(): void
+{
+    $variantModel = new ProductVariant();
+    $productModel = new Product();
 
-        $variants = $variantModel->allAdmin();
+    // Lấy toàn bộ biến thể
+    $variants = $variantModel->allAdmin();
 
-        $this->view(
-            'admin/variants',
-            compact('variants')
-        );
-    }
+    // Lấy danh sách điện thoại để hiển thị trong dropdown
+    $products = $productModel->all();
 
-    /**
-     * Form thêm biến thể
-     */
-    public function createForm(): void
-    {
-        $productModel = new Product();
+    $this->view(
+        'admin/variants',
+        compact('variants', 'products')
+    );
+}
 
-        $products = $productModel->all();
-
-        $this->view(
-            'admin/create',
-            compact('products')
-        );
-    }
+/**
+ * Mở trang thêm biến thể
+ * Form thêm nằm chung trang quản lý biến thể
+ */
+public function createForm(): void
+{
+    $this->index();
+}
 
     /**
      * Lưu biến thể mới
